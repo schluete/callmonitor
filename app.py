@@ -18,6 +18,7 @@
 # https://medium.com/@andreas.schallwig/how-to-make-your-raspberry-pi-file-system-read-only-raspbian-stretch-80c0f7be7353
 
 from contextlib import contextmanager
+from flask import Flask
 from fritzconnection.lib.fritzcall import FritzCall
 from threema.gateway import Connection, GatewayError
 from threema.gateway.simple import TextMessage
@@ -77,19 +78,27 @@ def fetch_calls(fc):
         calls.append((call.Id, msg))
     return calls
 
-def main():
-    cfg = configparser.ConfigParser()
-    cfg.read("monitor.ini")
-    recipient = cfg["default"]["recipient"]
 
+cfg = configparser.ConfigParser()
+cfg.read("monitor.ini")
+
+app = Flask(__name__)
+
+@app.route('/')
+def status():
+    return 'Hello, Docker!'
+
+@app.route('/update')
+def update():
+    recipient = cfg["default"]["recipient"]
     settings = cfg["lenauweg"]
     fc = connect(settings)
     calls = fetch_calls(fc)
 
+    cnt = 0
     for (msg_id, text) in calls:
         if not check_for_message(msg_id):
             if message(recipient, text):
                 mark_message(msg_id, text)
-
-if __name__ == "__main__":
-    main()
+                cnt += 1
+    return f"{cnt} calls updated"
