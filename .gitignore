@@ -1,0 +1,5 @@
+venv
+.activate.sh
+.deactivate.sh
+monitor.db
+monitor.ini
