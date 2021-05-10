@@ -40,9 +40,9 @@ Todo.
 
 ## Realtime call monitoring (not implemented for now)
 
-A more realtime approach to call monitoring for a local FritzBox would be to use the
-builtin CallMonitor service. Its advantage is that the information is being pushed to us
-instead of having to pull the FritzBox regularly.
+A more realtime approach to call monitoring for a local FritzBox is using the
+builtin CallMonitor service. Its advantage is that the information is being 
+pushed to us instead of having to pull the FritzBox regularly.
 
 To use the feature it has to be activated. This can be done with any registered phone
 by using the following codes:
