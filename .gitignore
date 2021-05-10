@@ -3,4 +3,5 @@ venv
 .deactivate.sh
 monitor.db
 monitor.ini
+monitor.log
 __pycache__

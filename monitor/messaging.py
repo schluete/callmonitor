@@ -3,6 +3,7 @@
 #  Created by Axel Schlueter on 10.05.21.
 
 import asyncio
+import logging
 from monitor.config import CONFIG
 from threema.gateway import Connection, GatewayError
 from threema.gateway.simple import TextMessage
@@ -14,7 +15,7 @@ async def _single_message(conn, recipient, text):
             await msg.send()
             return True
     except GatewayError as exc:
-        print("Threema gateway error:", exc)
+        logging.getLogger('app').error(f"Threema gateway error: {exc}")
         return False
 
 async def _all_messages(text):

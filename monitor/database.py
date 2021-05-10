@@ -4,10 +4,13 @@
 
 import sqlite3
 from contextlib import contextmanager
+from monitor.utils import is_docker
+
+DATABASE_FILE = "monitor.db" if not is_docker() else "/database/monitor.db"
 
 @contextmanager
 def _database():
-    conn = sqlite3.connect("monitor.db")
+    conn = sqlite3.connect(DATABASE_FILE)
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS calls (
                         msg_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
