@@ -12,12 +12,9 @@ async def _single_message(conn, recipient, text):
     try:
         async with conn:
             msg = TextMessage(connection=conn, to_id=recipient, text=text)
-            print("debug 100: msg ", msg, " for conn ", conn)
             await msg.send()
-            print("debug 110: ", "sending done")
             return True
     except GatewayError as exc:
-        print("error: ", exc)
         logging.getLogger('app').error(f"Threema gateway error: {exc}")
         return False
 
@@ -25,7 +22,6 @@ async def _all_messages(text):
     conn = Connection(
         identity=CONFIG.threema_identity,
         secret=CONFIG.threema_secret)
-        # secret=CONFIG.threema_secret,
         # verify_fingerprint=True)
 
     print("debug 120: connection is ", conn)

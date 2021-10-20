@@ -11,7 +11,9 @@ RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip3 install -r requirements.txt
+RUN pip3 install flask==1.1.4 threema.gateway==5.0.0 fritzconnection
+# RUN pip3 install flask==2.0.2 threema.gateway==5.0.0 fritzconnection
+# RUN pip3 install -r requirements.txt
 
 COPY app.py .
 COPY monitor/ monitor/
